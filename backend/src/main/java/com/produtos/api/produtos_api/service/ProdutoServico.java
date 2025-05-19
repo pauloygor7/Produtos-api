@@ -14,8 +14,6 @@ public class ProdutoServico {
     @Autowired
     private ProdutoRepositorio pr;
 
-    ProdutoModelo pm = new ProdutoModelo();
-
     @Autowired
     private RespostaModelo rm;
 
@@ -23,11 +21,11 @@ public class ProdutoServico {
         return pr.findAll();
     }
 
-    public ResponseEntity<?> cadastrar() {
-        if ("".equals(pm.getNome())) {
+    public ResponseEntity<?> cadastrar(ProdutoModelo pm) {
+        if (pm.getNome().equals("")) {
             rm.setMensagem("O nome do produto é obrigatório!");
             return new ResponseEntity<RespostaModelo>(rm, HttpStatus.BAD_REQUEST);
-        } else if ("".equals(pm.getMarca())) {
+        } else if (pm.getMarca().equals("")) {
             rm.setMensagem("A marca do produto é obrigatória!");
             return new ResponseEntity<RespostaModelo>(rm, HttpStatus.BAD_REQUEST);
         } else {
